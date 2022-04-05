@@ -15,12 +15,50 @@
 		}
 
 		$path = './templates/';
+		
+	//Проверка на авторизацию
+	if ((!empty($_POST['login'])) && (!empty($_POST['pass']))){
+		authorization($_POST['login'], $_POST['pass']);
+		header('location: ./', true, 301);
+	} 
+
+	//Запрос информации
+	if (!isset($_SESSION['id'])) {
+		$session_id = -1;
+
+	} else{
+		$session_id = $_SESSION['id'];
+	}
+	
+
+$user_info = userinfo($session_id);
+
+if ($user_info) {
+		$cur_time_unix = $CUR_TIME;
+		$login_time_unix = strtotime($user_info['date_login']);
+
+		$user_time = $cur_time_unix - $login_time_unix;
+
+		// echo "CUR_TIME = ".date("Y-m-d H:i:s", $cur_time_unix)."\n";
+		// echo $cur_time_unix."\n";
+		// echo $login_time_unix."\n";
+		// echo $user_time."\n";
+
+		//Проверка на выход пользователя
+		if ((isset($_GET['logout'])) || ($user_time > $TIME_LIVE)) {
+			session_destroy();
+			header('Location: ./', true, 301); //После выхода перенаправляемся на главную страницу
+		} else {
+			usertimeupdate($session_id);
+		}
+	}
+
 
 	//Главная страница
 	//===================================================
 	if ($page == '') {
-		include($path . 'content/main_content.php');
-		$content = $main_content;
+		$content = "{include file='content/products_view.tpl'}";
+		
 
 
 
@@ -28,7 +66,7 @@
 	//Магазине...
 	//===================================================	
 	} elseif ($page == 'shop'){
-		$content = '<h3> Shop page</h3>';
+		$content = "{include file='content/products_view.tpl'}";
 
 
 		

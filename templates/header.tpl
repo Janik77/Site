@@ -46,7 +46,7 @@
 		<div class="row">
 			<div class="col-md-2">
 				<div class="logo">
-					<a href="index.html">
+					<a href="/">
 						<img class="logoh" src="./templates/images/logo1.png">
 					</a>
 				</div>
@@ -56,26 +56,32 @@
 					<button type="button" class="btn btn-primary dropdown-toggle search me-2 mar" data-bs-toggle="dropdown">Все категории</button>
     <div class="dropdown-menu">
     {foreach $gpl as $gpl_item}
-      <a class="dropdown-item" href="?page=products&group={$gpl_item.id}">{$gpl_item.name}</a>
+      <a class="dropdown-item" href="?page=shop&group={$gpl_item.id}">{$gpl_item.name}</a>
       
     {/foreach}
     </div>
-
-					<button type="button" class="btn btn-outline-primary me-2 mar search">Магазин</button>
-					<form class="d-flex search" >
+    			<form class="d-flex search" action="/">
+					<button type="submit" class="btn btn-outline-primary me-2 mar search">Магазин</button>
+					
 			        <input class="form-control me-2 text1 mar" type="text" placeholder="Search">
 			        <button class="btn btn-primary mar" type="button">Search</button>
+			        <input type="hidden" name="page" value="shop">
 			        </form>
 				</div>
 			</div>
 
 			<div class="col-md-3">
 				<div class="row">
-					<div class="col-md-9" >
+					<div class="col-md-9">
+						{if $user_info}
+						<label for="fname" class="textnan">Добро пожаловть {$user_info.name}!</label><br>
+						<a href="/?logout=true" class="blc">Выход</a>
+						{else}
 						<label for="fname" class="textnan">Добро пожаловть Гость!</label><br>
-							<a href="/templates/Autho.html" class="blc">Войти </a>
+							<a data-bs-toggle="modal" href="#authModal" class="blc">Войти </a>
 							<span>|</span>
 							<a href="Registration.html" class="blc">Зарегистироваться </a>
+							{/if}
 						</div>
 						<div class="col-md-3 ps-0">
 						<img class="ico1" src="./templates/images/Slice 2.png">

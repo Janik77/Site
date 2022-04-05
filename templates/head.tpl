@@ -6,3 +6,5 @@
 <script scr="./templates/js/bootstrap.min.js"></script>
 <script src="./templates/js/bootstrap.bundle.min.js"></script>
 <script src="fontawesome/js/fontawesome.min.js"></script>
+<script src="./templates/js/jquery-3.6.0.min.js"> </script>
+<script src="./templates/js/jquery-3.6.0.min.js"></script>
